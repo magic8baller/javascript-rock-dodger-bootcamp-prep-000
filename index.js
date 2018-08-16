@@ -72,7 +72,7 @@ function createRock(x) {
 }
 
 //fxn: execute when END THE GAME
-function endGame() { 
+function endGame() {
   clearInterval(gameInterval);//clearing 'gameInterval'
   ROCKS.forEach(function(rock) { rock.remove() }); // remove all ROCKS from DOM
   window.removeEventListener('keydown', moveDodger); //remove `moveDodger` event listener
