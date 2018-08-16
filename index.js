@@ -1,6 +1,4 @@
-/**
- * Don't change these constants!
- */
+// Don't change these constants!
 const DODGER = document.getElementById('dodger')
 const GAME = document.getElementById('game')
 const GAME_HEIGHT = 400
@@ -12,10 +10,8 @@ const START = document.getElementById('start')
 
 var gameInterval = null
 
-/**
- * Be aware of what's above this line,
- * but all of your work should happen below.
- */
+
+//begin your code below:
 
 function checkCollision(rock) {
 
@@ -27,17 +23,16 @@ function checkCollision(rock) {
   if (top > 360) {
     const dodgerLeftEdge = positionToInteger(DODGER.style.left)
 
-    const dodgerRightEdge = dodgerLeftEdge + 40;
+    const dodgerRightEdge = dodgerLeftEdge + 40; // DODGER width = 40px. right-edge?
 
     const rockLeftEdge = positionToInteger(rock.style.left)
 
-    const rockRightEdge = rockLeftEdge + 20;
+    const rockRightEdge = rockLeftEdge + 20; // rock width=20px, so left-edge?
 
+    //if any of these 3 conditions are met, collision = true
     if (
        (rockLeftEdge < dodgerLeftEdge && rockRightEdge > dodgerLeftEdge) ||
-          //why is second one include '=' ?
       (rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge) ||
-
        (rockLeftEdge < dodgerRightEdge && rockRightEdge > dodgerRightEdge)
                ) {
       return true
@@ -45,57 +40,48 @@ function checkCollision(rock) {
   }
 }
 
+//remember: rock starts at 180px left
 function createRock(x) {
 
   const rock = document.createElement('div')
   rock.className = 'rock'
   rock.style.left = `${x}px`
   var top = 0;
-  GAME.appendChild(rock);
+  GAME.appendChild(rock); //append newly created 'rock' to game, & move it downwards
 
-  function moveRock() {
+  function moveRock() { //fxn => moves rock at 2px rate
   rock.style.top = `${top += 2}px`
 
-     if (checkCollision(rock)) {
+     if (checkCollision(rock)) { //rock collides with DODGER => endGame()
        return endGame();
      }
 
      else if (top < GAME_HEIGHT) {
-       window.requestAnimationFrame(moveRock);//move again if no collision
+       window.requestAnimationFrame(moveRock);//if rock hasn't reached GAME bottom, keep moving
      }
 
      else {
-       rock.remove();
+       rock.remove(); //but if rock HAS reached GAME bottom- remove the rock from DOM
      }
   }
   window.requestAnimationFrame(moveRock);
 
-  ROCKS.push(rock);
-  return rock;
+  ROCKS.push(rock); //add 'rock'=>ROCKS: so can remove all if collision **see endGame()!
+
+  return rock; //finally return rock element just created
 }
 
-/**
- * End the game by clearing `gameInterval`,
- * removing all ROCKS from the DOM,
- * and removing the `moveDodger` event listener.
- * Finally, alert "YOU LOSE!" to the player.
- */
-function endGame() {
-  clearInterval(gameInterval);
-  ROCKS.forEach(function(rock) { rock.remove() });
-  window.removeEventListener('keydown', moveDodger);
-  return alert('YOU LOSE!');
+//fxn: execute when END THE GAME
+function endGame() { 
+  clearInterval(gameInterval);//clearing 'gameInterval'
+  ROCKS.forEach(function(rock) { rock.remove() }); // remove all ROCKS from DOM
+  window.removeEventListener('keydown', moveDodger); //remove `moveDodger` event listener
+  return alert('YOU LOSE!'); //alert user
 }
 
+//fxn calls`moveDodgerLeft()`if left arrow is pressed &
+//`moveDodgerRight()`if right arrow pressed.
 function moveDodger(e) {
-  // implement me!
-  /**
-   * This function should call `moveDodgerLeft()`
-   * if the left arrow is pressed and `moveDodgerRight()`
-   * if the right arrow is pressed. (Check the constants
-   * we've declared for you above.)
-   * And be sure to use the functions declared below!
-   */
    if (e.which === LEFT_ARROW) {
      e.preventDefault();
      e.stopPropagation();
@@ -108,7 +94,7 @@ function moveDodger(e) {
    }
 }
 
-
+//fxn move DODGER 4px to the left & Using window.requestAnimationFrame()!
 function moveDodgerLeft() {
   var left = positionToInteger(DODGER.style.left);
    window.requestAnimationFrame(function() {
@@ -118,6 +104,8 @@ function moveDodgerLeft() {
   })
 }
 
+//fxn move DODGER 4px to the right & Using window.requestAnimationFrame()!
+//note will move left or right based on LEFT reference values
 function moveDodgerRight() {
   var left = positionToInteger(DODGER.style.left);
   window.requestAnimationFrame(function() {
