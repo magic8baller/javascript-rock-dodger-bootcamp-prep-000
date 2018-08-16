@@ -16,10 +16,12 @@ function checkCollision(rock) {
   const top = positionToInteger(rock.style.top)
 
   //rocks ht = 20px & DODGER ht= 20px => GAME_HEIGHT-20-20 = 360px;
+  //**NOTE: will move left/right based on REFERENCING LEFT values!**
+  
   if (top > 360) {
     const dodgerLeftEdge = positionToInteger(DODGER.style.left)
 
-    const dodgerRightEdge = dodgerLeftEdge + 40; // DODGER width = 40px. right-edge?
+    const dodgerRightEdge = dodgerLeftEdge + 40; // DODGER width = 40px. right-edge:
 
     const rockLeftEdge = positionToInteger(rock.style.left)
 
@@ -36,9 +38,10 @@ function checkCollision(rock) {
   }
 }
 
+
+
 //fxn: create rock, add to game, set conditions for 'rock' behavior
 function createRock(x) {
-
   const rock = document.createElement('div')
   rock.className = 'rock'
   rock.style.left = `${x}px`
@@ -67,6 +70,7 @@ function createRock(x) {
   return rock; //finally return rock element just created
 }
 
+
 //fxn: execute when END THE GAME
 function endGame() {
   clearInterval(gameInterval);//clearing 'gameInterval'
@@ -90,6 +94,7 @@ function moveDodger(e) {
    }
 }
 
+
 //fxn move DODGER 4px to the left & Using window.requestAnimationFrame()!
 function moveDodgerLeft() {
   var left = positionToInteger(DODGER.style.left);
@@ -99,6 +104,7 @@ function moveDodgerLeft() {
     }
   })
 }
+
 
 //fxn move DODGER 4px to the right & Using window.requestAnimationFrame()!
 //note: will move left or right based on LEFT reference values! (as above)
@@ -110,6 +116,7 @@ function moveDodgerRight() {
     }
   })
 }
+
 
 /**
  * @param {string} p The position property
