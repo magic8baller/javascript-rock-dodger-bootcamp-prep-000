@@ -11,15 +11,11 @@ const START = document.getElementById('start')
 var gameInterval = null
 
 
-//begin your code below:
-
+//fxn => check for rock collision
 function checkCollision(rock) {
-
   const top = positionToInteger(rock.style.top)
 
-  // rocks are 20px high
-  // DODGER is 20px high
-  // GAME_HEIGHT - 20 - 20 = 360px;
+  //rocks ht = 20px & DODGER ht= 20px => GAME_HEIGHT-20-20 = 360px;
   if (top > 360) {
     const dodgerLeftEdge = positionToInteger(DODGER.style.left)
 
@@ -29,7 +25,7 @@ function checkCollision(rock) {
 
     const rockRightEdge = rockLeftEdge + 20; // rock width=20px, so left-edge?
 
-    //if any of these 3 conditions are met, collision = true
+    //if any of these 3 conditions are met => collision = true
     if (
        (rockLeftEdge < dodgerLeftEdge && rockRightEdge > dodgerLeftEdge) ||
       (rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge) ||
@@ -40,7 +36,7 @@ function checkCollision(rock) {
   }
 }
 
-//remember: rock starts at 180px left
+//fxn: create rock, add to game, set conditions for 'rock' behavior
 function createRock(x) {
 
   const rock = document.createElement('div')
@@ -105,7 +101,7 @@ function moveDodgerLeft() {
 }
 
 //fxn move DODGER 4px to the right & Using window.requestAnimationFrame()!
-//note will move left or right based on LEFT reference values
+//note: will move left or right based on LEFT reference values! (as above)
 function moveDodgerRight() {
   var left = positionToInteger(DODGER.style.left);
   window.requestAnimationFrame(function() {
