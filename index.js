@@ -17,7 +17,7 @@ function checkCollision(rock) {
 
   //rocks ht = 20px & DODGER ht= 20px => GAME_HEIGHT-20-20 = 360px;
   //**NOTE: will move left/right based on REFERENCING LEFT values!**
-  
+
   if (top > 360) {
     const dodgerLeftEdge = positionToInteger(DODGER.style.left)
 
